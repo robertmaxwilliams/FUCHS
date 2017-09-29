@@ -57,6 +57,13 @@ def main():
 
     parser.add_argument('-P', '--cpus', dest='num_cpus', default=4, type=int,
                         help='Number of CPUs used.')
+						
+	parser.add_argument('--clustering', dest='clustering_algorithm', default="Kmeans", type=str,
+                        help='Clustering algorithm used in step 7, can be either Kmeans or hcluster')
+						
+	parser.add_argument('--method', dest='clustering_method', default=4, type=int,
+                        help='clustering method to be used, must be one of: euclidean, maximum, manhattan, \
+						canberra, binary, pearson, abspearson, correlation, abscorrelation, spearman, or kendall'
 
     args = parser.parse_args()
 
@@ -277,7 +284,7 @@ def main():
     if not 'step7' in skipped_steps:
         if not os.path.isfile('%s/%s.coverage_profiles/coverage_profiles.all_circles.pdf' % (outfolder, sample)):
             if os.path.isdir('%s/%s.coverage_profiles/' % (outfolder, sample)):
-                os.system('summarized_coverage_profiles.R %s/%s.coverage_profiles' % (outfolder, sample))
+                os.system('summarized_coverage_profiles.R %s/%s.coverage_profiles %s %s' % (outfolder, sample, clustering_algorithm, clustering_method))
             else:
                 output_file = open('%s/%s.logfile.%s' % (outfolder, sample, dt.replace(' ', '_')), 'a')
                 output_file.write('\tYou are trying cluster the coverage profiles without '

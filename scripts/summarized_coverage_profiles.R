@@ -15,30 +15,30 @@ folder = args[1]
 # all coverage profiles in a folder
 files <- list.files(path=folder, pattern="*.txt", full.names=T, recursive=FALSE)
 
-#a string containing the name of the clustering algorythm to use
+#a string containing the name of the clustering algorithm to use
 #choices are from amaps library, "Kmeans" and "hcluster"
 #method can be one of: "euclidean", "maximum", "manhattan", "canberra", 
 #    "binary", "pearson", "abspearson", "correlation", "abscorrelation", 
 #    "spearman" or "kendall"
 
-#check for optional argument number 2, clustering algorythm
+#check for optional argument number 2, clustering algorithm
 if (length(args) >1){
-  algorythm = args[2]
+  algorithm = args[2]
 } else{
-  algorythm == "Kmeans"
+  algorithm == 'Kmeans'
 }
 
 #check for optional arguments number 3, clustering method. TODO: use named keywords for arguments
 if (length(args) > 2){
   method = args[3]
 } else {
-  method = "correlation"
+  method = 'correlation'
 }
 
 #set fit function to the variable cluster based on user choice or default
-if (algorythm == Kmeans){
+if (algorithm == 'Kmeans'){
   cluster <- Kmeans
-} else if (algorythm == "hcluster"){
+} else if (algorithm == 'hcluster'){
   cluster <- hcluster
 }
   
