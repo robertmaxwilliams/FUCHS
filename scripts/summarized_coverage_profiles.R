@@ -15,6 +15,33 @@ folder = args[1]
 # all coverage profiles in a folder
 files <- list.files(path=folder, pattern="*.txt", full.names=T, recursive=FALSE)
 
+#a string containing the name of the clustering algorythm to use
+#choices are from amaps library, "Kmeans" and "hcluster"
+#method can be one of: "euclidean", "maximum", "manhattan", "canberra", 
+#    "binary", "pearson", "abspearson", "correlation", "abscorrelation", 
+#    "spearman" or "kendall"
+
+#check for optional argument number 2, clustering algorythm
+if (length(args) >1){
+  algorythm = args[2]
+} else{
+  algorythm == "Kmeans"
+}
+
+#check for optional arguments number 3, clustering method. TODO: use named keywords for arguments
+if (length(args) > 2){
+  method = args[3]
+} else {
+  method = "correlation"
+}
+
+#set fit function to the variable cluster based on user choice or default
+if (algorythm == Kmeans){
+  cluster <- Kmeans
+} else if (algorythm == "hcluster"){
+  cluster <- hcluster
+}
+  
 # need to include checks for correct input data
 
 summary_table = data.frame(matrix(rep(NA, length(files) * 103), ncol = 103))
@@ -94,7 +121,7 @@ choose_centers <- function(D){
 centers = choose_centers(summary_table)
 #print(centers)
 if(centers > 1){
-  kk = Kmeans(summary_table[,-c(1,2)], centers = centers, method = 'correlation', iter.max = 50, nstart = 100)
+  kk = cluster(summary_table[,-c(1,2)], centers = centers, method = 'correlation', iter.max = 50, nstart = 100)
   
   pdf(paste(folder,'coverage.clusters.all_circles.pdf', sep = '/'))
     for(i in 1:centers) {
@@ -115,7 +142,7 @@ if(centers > 1){
 centers = choose_centers(summary_table_short_circle)
 #print(centers)
 if(centers > 1){
-  kk.short = Kmeans(summary_table_short_circle[,-c(1,2)], centers = centers, method = 'correlation', iter.max = 50, nstart = 50)
+  kk.short = cluster(summary_table_short_circle[,-c(1,2)], centers = centers, method = method, iter.max = 50, nstart = 50)
   
   pdf(paste(folder,'coverage.clusters.short_circles.pdf', sep = '/'))
     for(i in 1:centers) {
@@ -134,7 +161,7 @@ if(centers > 1){
 # cluster medium circles
 centers = choose_centers(summary_table_medium_circle)
 if(centers > 1){
-  kk.medium = Kmeans(summary_table_medium_circle[,-c(1,2)], centers = centers, method = 'correlation', iter.max = 50, nstart = 100)
+  kk.medium = cluster(summary_table_medium_circle[,-c(1,2)], centers = centers, method = method, iter.max = 50, nstart = 100)
   
   pdf(paste(folder,'coverage.clusters.medium_circles.pdf', sep = '/'))
     for(i in 1:centers) {
@@ -156,7 +183,7 @@ write.table(kk.medium[[2]], paste(folder,'cluster_means.medium_circles.tsv', sep
 centers = choose_centers(summary_table_long_circle)
 #print(centers)
 if(centers > 1){
-  kk.long = Kmeans(summary_table_long_circle[,-c(1,2)], centers = centers, method = 'correlation', iter.max = 50, nstart = 100)
+  kk.long = cluster(summary_table_long_circle[,-c(1,2)], centers = centers, method = method, iter.max = 50, nstart = 100)
   
   pdf(paste(folder,'coverage.clusters.long_circles.pdf', sep = '/'))
     for(i in 1:centers) {
