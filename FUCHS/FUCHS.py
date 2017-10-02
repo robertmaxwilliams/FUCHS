@@ -63,7 +63,7 @@ def main():
 						
 	parser.add_argument('-m', '--method', dest='clustering_method', default='correlation', type=str,
                         help='clustering method to be used, must be one of: euclidean, maximum, manhattan, \
-						canberra, binary, pearson, abspearson, correlation, abscorrelation, spearman, or kendall'
+						canberra, binary, pearson, abspearson, correlation, abscorrelation, spearman, or kendall')
 
     args = parser.parse_args()
 
