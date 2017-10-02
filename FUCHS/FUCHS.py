@@ -58,10 +58,10 @@ def main():
     parser.add_argument('-P', '--cpus', dest='num_cpus', default=4, type=int,
                         help='Number of CPUs used.')
 						
-	parser.add_argument('--clustering', dest='clustering_algorithm', default="Kmeans", type=str,
+	parser.add_argument('-l', '--clustering', dest='clustering_algorithm', default='Kmeans', type=str,
                         help='Clustering algorithm used in step 7, can be either Kmeans or hcluster')
 						
-	parser.add_argument('--method', dest='clustering_method', default=4, type=int,
+	parser.add_argument('-m', '--method', dest='clustering_method', default='correlation', type=str,
                         help='clustering method to be used, must be one of: euclidean, maximum, manhattan, \
 						canberra, binary, pearson, abspearson, correlation, abscorrelation, spearman, or kendall'
 
