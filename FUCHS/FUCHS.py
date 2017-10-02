@@ -62,8 +62,8 @@ def main():
                         help='Clustering algorithm used in step 7, can be either Kmeans or hcluster')
 						
 	parser.add_argument('-m', '--method', dest='clustering_method', default='correlation', type=str,
-                        help='clustering method to be used, must be one of: euclidean, maximum, manhattan, \
-						canberra, binary, pearson, abspearson, correlation, abscorrelation, spearman, or kendall')
+                        help=('clustering method to be used, must be one of: euclidean, maximum, manhattan, '
+						'canberra, binary, pearson, abspearson, correlation, abscorrelation, spearman, or kendall'))
 
     args = parser.parse_args()
 
